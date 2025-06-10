@@ -1,3 +1,5 @@
+#pragma once
+
 #include "utils/table.h"
 #include "utils/sudoku.h"
 
