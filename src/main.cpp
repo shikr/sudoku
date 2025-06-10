@@ -7,6 +7,9 @@
 #include <imgui.h>
 #include <imgui_impl_allegro5.h>
 
+#include "utils/sudoku.h"
+#include "utils/table.h"
+
 const char* FONT = "C:\\Windows\\Fonts\\segoeui.ttf";
 
 int main() {
@@ -35,6 +38,9 @@ int main() {
   ImGui_ImplAllegro5_Init(display);
 
   bool running = true;
+  AppState state;
+  state.status = Selecting;
+  fillTable(state.table);
   while (running) {
     ALLEGRO_EVENT ev;
     while (al_get_next_event(event_queue, &ev)) {
@@ -53,6 +59,7 @@ int main() {
     ImGui_ImplAllegro5_RenderDrawData(ImGui::GetDrawData());
     al_flip_display();
   }
+  freeTable(state.table);
 
   ImGui_ImplAllegro5_Shutdown();
   ImGui::DestroyContext();
