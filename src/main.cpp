@@ -3,8 +3,11 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/fshook.h>
 #include <imgui.h>
 #include <imgui_impl_allegro5.h>
+
+const char* FONT = "C:\\Windows\\Fonts\\segoeui.ttf";
 
 int main() {
   al_init();
@@ -24,6 +27,9 @@ int main() {
   ImGuiIO &io = ImGui::GetIO();
   (void)io;
   io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+  if (al_filename_exists(FONT)) {
+    io.Fonts->AddFontFromFileTTF(FONT, 22);
+  }
 
   ImGui::StyleColorsDark();
   ImGui_ImplAllegro5_Init(display);
