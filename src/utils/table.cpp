@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include "sudoku.h"
 
 typedef int **Table;
@@ -29,6 +31,18 @@ bool isAvailable(AppState state, int row, int col, int n) {
   }
 
   return true;
+}
+
+void fillRandom(AppState state) {
+  for (int i = 0; i < state.size; i++) {
+    for (int j = 0; j < state.size; j++) {
+      int n = rand() % 10;
+      if (rand() % 10 < state.size / 3 && isAvailable(state, i, j, n))
+        state.table[i][j] = rand() % 10;
+      else
+        state.table[i][j] = 0;
+    }
+  }
 }
 
 void freeTable(Table table, int size) {

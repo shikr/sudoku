@@ -6,6 +6,8 @@
 #include <allegro5/fshook.h>
 #include <imgui.h>
 #include <imgui_impl_allegro5.h>
+#include <cstdlib>
+#include <ctime>
 
 #include "ui.h"
 #include "utils/sudoku.h"
@@ -37,6 +39,7 @@ int main() {
 
   ImGui::StyleColorsDark();
   ImGui_ImplAllegro5_Init(display);
+  srand(time(NULL));
 
   bool running = true;
   AppState state;
