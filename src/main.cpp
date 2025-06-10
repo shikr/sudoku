@@ -45,6 +45,7 @@ int main() {
   while (running) {
     ALLEGRO_EVENT ev;
     while (al_get_next_event(event_queue, &ev)) {
+      ImGui_ImplAllegro5_ProcessEvent(&ev);
       if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) running = false;
     }
 
