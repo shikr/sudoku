@@ -1,6 +1,5 @@
 #include <imgui.h>
 
-#include "utils/table.h"
 #include "utils/sudoku.h"
 
 void RenderTable(Table table) {
