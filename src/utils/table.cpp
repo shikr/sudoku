@@ -2,17 +2,17 @@
 
 typedef int **Table;
 
-void fillTable(Table &table) {
-  table = new int*[TABLE_SIZE];
-  for (int i = 0; i < TABLE_SIZE; i++) {
-    table[i] = new int[TABLE_SIZE];
-    for (int j = 0; j < TABLE_SIZE; j++) {
+void fillTable(Table &table, int size) {
+  table = new int*[size];
+  for (int i = 0; i < size; i++) {
+    table[i] = new int[size];
+    for (int j = 0; j < size; j++) {
       table[i][j] = 0;
     }
   }
 }
 
-void freeTable(Table table) {
-  for (int i = 0; i < TABLE_SIZE; i++) delete[] table[i];
+void freeTable(Table table, int size) {
+  for (int i = 0; i < size; i++) delete[] table[i];
   delete[] table;
 }

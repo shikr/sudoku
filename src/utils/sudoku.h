@@ -1,10 +1,9 @@
 #pragma once
 
-inline constexpr int TABLE_SIZE = 9;
-
 typedef int **Table;
 
 enum AppStatus {
+  SizeSelecting,
   Selecting,
   Resolving,
   Finished
@@ -13,4 +12,6 @@ enum AppStatus {
 typedef struct {
   Table table;
   AppStatus status;
+  int size;
+  int subSize;
 } AppState;

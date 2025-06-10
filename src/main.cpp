@@ -40,8 +40,8 @@ int main() {
 
   bool running = true;
   AppState state;
-  state.status = Selecting;
-  fillTable(state.table);
+  state.status = SizeSelecting;
+  fillTable(state.table, state.size);
   while (running) {
     ALLEGRO_EVENT ev;
     while (al_get_next_event(event_queue, &ev)) {
@@ -64,7 +64,7 @@ int main() {
     ImGui_ImplAllegro5_RenderDrawData(ImGui::GetDrawData());
     al_flip_display();
   }
-  freeTable(state.table);
+  freeTable(state.table, state.size);
 
   ImGui_ImplAllegro5_Shutdown();
   ImGui::DestroyContext();

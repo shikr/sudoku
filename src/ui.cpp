@@ -3,13 +3,13 @@
 
 #include "utils/sudoku.h"
 
-void RenderTable(Table table) {
-  if (ImGui::BeginTable("Table", TABLE_SIZE, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)) {
-    for (int i = 0; i < TABLE_SIZE; i++) {
+void RenderTable(AppState state) {
+  if (ImGui::BeginTable("Table", state.size, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)) {
+    for (int i = 0; i < state.size; i++) {
       ImGui::TableNextRow();
-      for (int j = 0; j < TABLE_SIZE; j++) {
+      for (int j = 0; j < state.size; j++) {
         ImGui::TableSetColumnIndex(j);
-        ImGui::Text("Col %d", table[i][j]);
+        ImGui::Text("Col %d", state.table[i][j]);
       }
     }
 
@@ -22,14 +22,14 @@ void RenderInput(AppState &state) {
     return;
   ImGui::Text("Establece los valores iniciales de la tabla.");
   ImGui::SeparatorText("Sudoku");
-  if (!ImGui::BeginTable("Input Table", TABLE_SIZE)) return;
-  for (int i = 0; i < TABLE_SIZE; i++) {
+  if (!ImGui::BeginTable("Input Table", state.size)) return;
+  for (int i = 0; i < state.size; i++) {
     ImGui::TableNextRow();
-    for (int j = 0; j < TABLE_SIZE; j++) {
+    for (int j = 0; j < state.size; j++) {
       char label[32];
       ImGui::TableSetColumnIndex(j);
       snprintf(label, sizeof(label), "##cell_%d_%d", i, j);
-      ImGui::SliderInt(label, &state.table[i][j], 0, TABLE_SIZE);
+      ImGui::SliderInt(label, &state.table[i][j], 0, state.size);
     }
   }
   ImGui::EndTable();
@@ -47,10 +47,12 @@ void RenderUi(AppState *state) {
   if(ImGui::Begin("Sudoku Solver", NULL, ImGuiWindowFlags_NoDecoration)) {
     switch (state->status) {
       case Resolving:
-        RenderTable(state->table);
+        RenderTable(*state);
         break;
       case Selecting:
         RenderInput(*state);
+        break;
+      case SizeSelecting:
         break;
       case Finished:
         break;

@@ -2,6 +2,6 @@
 
 #include "sudoku.h"
 
-void fillTable(Table &);
+void fillTable(Table &, int);
 
-void freeTable(Table);
+void freeTable(Table, int);
