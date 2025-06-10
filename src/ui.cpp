@@ -2,6 +2,7 @@
 #include <cstdio>
 
 #include "utils/sudoku.h"
+#include "utils/table.h"
 
 void RenderTable(AppState state) {
   if (ImGui::BeginTable("Table", state.size, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)) {
@@ -37,6 +38,23 @@ void RenderInput(AppState &state) {
   ImGui::EndChild();
 }
 
+void RenderSize(AppState &state) {
+  if (!ImGui::BeginChild("Input Size", ImVec2(0, 0), true))
+    return;
+  ImGui::Text("Establece las dimensiones de la tabla.");
+  ImGui::RadioButton("9x9", &state.size, 9);
+  ImGui::RadioButton("4x4", &state.size, 4);
+  if (state.size == 9)
+    state.subSize = 3;
+  else
+    state.subSize = 2;
+  if (ImGui::Button("Aceptar")) {
+    fillTable(state.table, state.size);
+    state.status = Selecting;
+  }
+  ImGui::EndChild();
+}
+
 void RenderUi(AppState *state) {
   const ImGuiViewport *main_viewport = ImGui::GetMainViewport();
   ImGui::SetNextWindowPos(
@@ -53,6 +71,7 @@ void RenderUi(AppState *state) {
         RenderInput(*state);
         break;
       case SizeSelecting:
+        RenderSize(*state);
         break;
       case Finished:
         break;

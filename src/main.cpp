@@ -41,7 +41,8 @@ int main() {
   bool running = true;
   AppState state;
   state.status = SizeSelecting;
-  fillTable(state.table, state.size);
+  state.size = 9;
+  state.subSize = 3;
   while (running) {
     ALLEGRO_EVENT ev;
     while (al_get_next_event(event_queue, &ev)) {
