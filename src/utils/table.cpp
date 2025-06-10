@@ -12,6 +12,25 @@ void fillTable(Table &table, int size) {
   }
 }
 
+bool isAvailable(AppState state, int row, int col, int n) {
+  // if is in the row/column
+  for (int i = 0; i < state.size; i++) {
+    if (state.table[row][i] == n || state.table[i][col] == n) return false;
+  }
+
+  int startRow = row - row % state.subSize;
+  int startCol = col - col % 2;
+
+  // if is in the subtable
+  for (int i = 0; i < state.subSize; i++) {
+    for (int j = 0; j < state.subSize; j++) {
+      if (state.table[i + startRow][j + startCol] == n) return false;
+    }
+  }
+
+  return true;
+}
+
 void freeTable(Table table, int size) {
   for (int i = 0; i < size; i++) delete[] table[i];
   delete[] table;
