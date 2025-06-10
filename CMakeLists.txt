@@ -24,5 +24,8 @@ target_sources(SudokuSolver PRIVATE
   src/utils/table.cpp
   src/utils/table.h
 
+  src/utils/fs.cpp
+  src/utils/fs.h
+
   src/utils/sudoku.h
 )
