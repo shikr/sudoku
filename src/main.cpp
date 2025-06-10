@@ -7,6 +7,7 @@
 #include <imgui.h>
 #include <imgui_impl_allegro5.h>
 
+#include "ui.h"
 #include "utils/sudoku.h"
 #include "utils/table.h"
 
@@ -50,9 +51,7 @@ int main() {
     ImGui_ImplAllegro5_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::Begin("Hello, world!");
-    ImGui::Text("This is some useful text.");
-    ImGui::End();
+    RenderUi(&state);
 
     ImGui::Render();
     al_clear_to_color(al_map_rgb(30, 30, 30));

@@ -18,6 +18,9 @@ target_link_libraries(SudokuSolver PRIVATE
 )
 
 target_sources(SudokuSolver PRIVATE
+  src/ui.cpp
+  src/ui.h
+
   src/utils/table.cpp
   src/utils/table.h
 
