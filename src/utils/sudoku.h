@@ -12,6 +12,7 @@ enum AppStatus {
 typedef struct {
   Table table;
   AppStatus status;
+  char *key;
   int size;
   int subSize;
 } AppState;

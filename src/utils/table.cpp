@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <cstdio>
 
 #include "sudoku.h"
 
@@ -12,6 +13,23 @@ void fillTable(Table &table, int size) {
       table[i][j] = 0;
     }
   }
+}
+
+char *tableToKey(AppState state) {
+  size_t size = state.size * state.size + state.size + 1;
+  char *result = new char[size];
+  result[0] = '\0';
+  for (int i = 0; i < state.size; i++) {
+    for (int j = 0; j < state.size; j++) {
+      if (state.table[i][j] == 0) {
+        snprintf(result, size, "%s%s", result, " ");
+      } else {
+        snprintf(result, size, "%s%d", result, state.table[i][j]);
+      }
+    }
+    snprintf(result, size, "%s>", result);
+  }
+  return result;
 }
 
 bool isAvailable(AppState state, int row, int col, int n) {

@@ -36,7 +36,10 @@ void RenderInput(AppState &state) {
   ImGui::EndTable();
   if (ImGui::Button("Aleatorio")) fillRandom(state);
   ImGui::SameLine();
-  if (ImGui::Button("Aceptar")) state.status = Resolving;
+  if (ImGui::Button("Aceptar")) {
+    state.key = tableToKey(state);
+    state.status = Resolving;
+  }
   ImGui::EndChild();
 }
 
