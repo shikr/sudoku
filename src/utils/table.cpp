@@ -1,14 +1,15 @@
 #include <json-c/json.h>
-#include <cstdlib>
-#include <cstdio>
 
-#include "sudoku.h"
+#include <cstdio>
+#include <cstdlib>
+
 #include "fs.h"
+#include "sudoku.h"
 
 typedef int **Table;
 
 void fillTable(Table &table, int size) {
-  table = new int*[size];
+  table = new int *[size];
   for (int i = 0; i < size; i++) {
     table[i] = new int[size];
     for (int j = 0; j < size; j++) {
@@ -84,10 +85,10 @@ bool solve(AppState state) {
       state.table[row][col] = n;
 
       saveStep(state);
-      
+
       if (solve(state)) return true;
 
-      state.table[row][col] = 0; // Backtrack
+      state.table[row][col] = 0;  // Backtrack
     }
   }
 

@@ -6,6 +6,7 @@
 #include <allegro5/fshook.h>
 #include <imgui.h>
 #include <imgui_impl_allegro5.h>
+
 #include <cstdlib>
 #include <ctime>
 
@@ -13,7 +14,7 @@
 #include "utils/sudoku.h"
 #include "utils/table.h"
 
-const char* FONT = "C:\\Windows\\Fonts\\segoeui.ttf";
+const char *FONT = "C:\\Windows\\Fonts\\segoeui.ttf";
 
 int main() {
   al_init();

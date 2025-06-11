@@ -1,6 +1,7 @@
 #include <json-c/json.h>
-#include <cstdlib>
+
 #include <cstdio>
+#include <cstdlib>
 #include <filesystem>
 
 #include "sudoku.h"
@@ -20,7 +21,8 @@ char *getEnv(const char *var) {
 
 void saveStep(AppState state) {
   char filename[] = "data.json";
-  json_object *root = fs::exists(filename) ? json_object_from_file(filename) : json_object_new_object();
+  json_object *root =
+      fs::exists(filename) ? json_object_from_file(filename) : json_object_new_object();
   json_object *array;
 
   if (!json_object_object_get_ex(root, state.key, &array)) {

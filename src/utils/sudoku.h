@@ -2,12 +2,7 @@
 
 typedef int **Table;
 
-enum AppStatus {
-  SizeSelecting,
-  Selecting,
-  Resolving,
-  Finished
-};
+enum AppStatus { SizeSelecting, Selecting, Resolving, Finished };
 
 typedef struct {
   Table table;

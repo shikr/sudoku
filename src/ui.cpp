@@ -1,11 +1,13 @@
 #include <imgui.h>
+
 #include <cstdio>
 
 #include "utils/sudoku.h"
 #include "utils/table.h"
 
 void RenderTable(AppState state) {
-  if (ImGui::BeginTable("Table", state.size, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)) {
+  if (ImGui::BeginTable("Table", state.size,
+                        ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)) {
     for (int i = 0; i < state.size; i++) {
       ImGui::TableNextRow();
       for (int j = 0; j < state.size; j++) {
@@ -19,8 +21,7 @@ void RenderTable(AppState state) {
 }
 
 void RenderInput(AppState &state) {
-  if (!ImGui::BeginChild("Input Table", ImVec2(0, 0), true))
-    return;
+  if (!ImGui::BeginChild("Input Table", ImVec2(0, 0), true)) return;
   ImGui::Text("Establece los valores iniciales de la tabla.");
   ImGui::SeparatorText("Sudoku");
   if (!ImGui::BeginTable("Input Table", state.size)) return;
@@ -46,8 +47,7 @@ void RenderInput(AppState &state) {
 }
 
 void RenderSize(AppState &state) {
-  if (!ImGui::BeginChild("Input Size", ImVec2(0, 0), true))
-    return;
+  if (!ImGui::BeginChild("Input Size", ImVec2(0, 0), true)) return;
   ImGui::Text("Establece las dimensiones de la tabla.");
   ImGui::RadioButton("9x9", &state.size, 9);
   ImGui::RadioButton("4x4", &state.size, 4);
@@ -64,12 +64,10 @@ void RenderSize(AppState &state) {
 
 void RenderUi(AppState *state) {
   const ImGuiViewport *main_viewport = ImGui::GetMainViewport();
-  ImGui::SetNextWindowPos(
-      ImVec2(main_viewport->WorkPos.x, main_viewport->WorkPos.y));
-  ImGui::SetNextWindowSize(
-      ImVec2(main_viewport->WorkSize.x, main_viewport->WorkSize.y));
-  
-  if(ImGui::Begin("Sudoku Solver", NULL, ImGuiWindowFlags_NoDecoration)) {
+  ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x, main_viewport->WorkPos.y));
+  ImGui::SetNextWindowSize(ImVec2(main_viewport->WorkSize.x, main_viewport->WorkSize.y));
+
+  if (ImGui::Begin("Sudoku Solver", NULL, ImGuiWindowFlags_NoDecoration)) {
     switch (state->status) {
       case Resolving:
         RenderTable(*state);

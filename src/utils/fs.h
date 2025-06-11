@@ -4,6 +4,6 @@
 
 #include "sudoku.h"
 
-char *getEnv(const char*);
+char *getEnv(const char *);
 
 void saveStep(AppState);
