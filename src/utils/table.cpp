@@ -53,7 +53,7 @@ bool isAvailable(AppState state, int row, int col, int n) {
   }
 
   int startRow = row - row % state.subSize;
-  int startCol = col - col % 2;
+  int startCol = col - col % state.subSize;
 
   // if is in the subtable
   for (int i = 0; i < state.subSize; i++) {
@@ -79,7 +79,7 @@ bool solve(AppState state) {
 
   if (!findEmpty(state, row, col)) return true;
 
-  for (int n = 1; n <= state.subSize; n++) {
+  for (int n = 1; n <= state.size; n++) {
     if (isAvailable(state, row, col, n)) {
       state.table[row][col] = n;
 
