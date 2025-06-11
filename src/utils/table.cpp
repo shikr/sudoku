@@ -3,6 +3,7 @@
 #include <cstdio>
 
 #include "sudoku.h"
+#include "fs.h"
 
 typedef int **Table;
 
@@ -62,6 +63,35 @@ bool isAvailable(AppState state, int row, int col, int n) {
   }
 
   return true;
+}
+
+bool findEmpty(AppState state, int &row, int &col) {
+  for (row = 0; row < state.size; row++) {
+    for (col = 0; col < state.size; col++) {
+      if (state.table[row][col] == 0) return true;
+    }
+  }
+  return false;
+}
+
+bool solve(AppState state) {
+  int row, col;
+
+  if (!findEmpty(state, row, col)) return true;
+
+  for (int n = 1; n <= state.subSize; n++) {
+    if (isAvailable(state, row, col, n)) {
+      state.table[row][col] = n;
+
+      saveStep(state);
+      
+      if (solve(state)) return true;
+
+      state.table[row][col] = 0; // Backtrack
+    }
+  }
+
+  return false;
 }
 
 void fillRandom(AppState state) {
