@@ -1,3 +1,4 @@
+#include <json-c/json.h>
 #include <cstdlib>
 #include <cstdio>
 
@@ -30,6 +31,18 @@ char *tableToKey(AppState state) {
     snprintf(result, size, "%s>", result);
   }
   return result;
+}
+
+json_object *tableToJson(AppState state) {
+  json_object *arr = json_object_new_array();
+  for (int i = 0; i < state.size; i++) {
+    json_object *row = json_object_new_array();
+    for (int j = 0; j < state.size; j++) {
+      json_object_array_add(row, json_object_new_int(state.table[i][j]));
+    }
+    json_object_array_add(arr, row);
+  }
+  return arr;
 }
 
 bool isAvailable(AppState state, int row, int col, int n) {
