@@ -38,6 +38,8 @@ void RenderInput(AppState &state) {
   ImGui::SameLine();
   if (ImGui::Button("Aceptar")) {
     state.key = tableToKey(state);
+    // TODO: use in a new thread
+    solve(state);
     state.status = Resolving;
   }
   ImGui::EndChild();
