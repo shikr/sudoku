@@ -4,6 +4,7 @@
 #include <filesystem>
 
 #include "sudoku.h"
+#include "table.h"
 
 namespace fs = std::filesystem;
 
@@ -17,31 +18,19 @@ char *getEnv(const char *var) {
   return value;
 }
 
-json_object *getJsonTable(AppState state, json_object **root) {
-  char key[4];
-  snprintf(key, 4, "%dx%d", state.size, state.size);
-  json_object *table_map;
-  json_object *array;
-
-  if (!json_object_object_get_ex(*root, key, &table_map)) {
-    table_map = json_object_new_object();
-    if (!json_object_object_get_ex(table_map, state.key, &array)) {
-      array = json_object_new_array();
-      json_object_object_add(table_map, state.key, array);
-    }
-    json_object_object_add(*root, key, table_map);
-  }
-
-  return array;
-}
-
-json_object *loadJson(AppState state) {
+void saveStep(AppState state) {
   char filename[] = "data.json";
   json_object *root = fs::exists(filename) ? json_object_from_file(filename) : json_object_new_object();
-  
-  getJsonTable(state, &root);
+  json_object *array;
+
+  if (!json_object_object_get_ex(root, state.key, &array)) {
+    array = json_object_new_array();
+    json_object_object_add(root, state.key, array);
+  }
+
+  json_object_array_add(array, tableToJson(state));
 
   json_object_to_file(filename, root);
 
-  return root;
+  json_object_put(root);
 }
