@@ -3,7 +3,10 @@
     "allegro5",
     {
       "name": "imgui",
-      "features": ["allegro5-binding"]
-    }
+      "features": [
+        "allegro5-binding"
+      ]
+    },
+    "json-c"
   ]
 }
