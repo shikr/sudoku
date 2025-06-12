@@ -89,7 +89,7 @@ void RenderInput(AppState &state) {
     if (checkTable(state)) {
       state.key = tableToKey(state);
       // TODO: use in a new thread
-      solve(state);
+      if (!alreadyWritten(state)) solve(state);
       state.step = 0;
       state.lastStepTime = ImGui::GetTime();
       state.table = getStep(state);
