@@ -2,6 +2,7 @@
 
 #include <cstdio>
 
+#include "utils/fs.h"
 #include "utils/sudoku.h"
 #include "utils/table.h"
 
@@ -41,6 +42,10 @@ void RenderInput(AppState &state) {
     state.key = tableToKey(state);
     // TODO: use in a new thread
     solve(state);
+    state.step = 0;
+    state.lastStepTime = ImGui::GetTime();
+    state.table = getStep(state);
+    state.step++;
     state.status = Resolving;
   }
   ImGui::EndChild();
@@ -70,6 +75,12 @@ void RenderUi(AppState *state) {
   if (ImGui::Begin("Sudoku Solver", NULL, ImGuiWindowFlags_NoDecoration)) {
     switch (state->status) {
       case Resolving:
+        if (ImGui::GetTime() - state->lastStepTime > DELAY) {
+          state->lastStepTime = ImGui::GetTime();
+          state->table = getStep(*state);
+          state->step++;
+          if (state->step >= getStepsSize(state->key)) state->status = Finished;
+        }
         RenderTable(*state);
         break;
       case Selecting:
@@ -79,6 +90,8 @@ void RenderUi(AppState *state) {
         RenderSize(*state);
         break;
       case Finished:
+        ImGui::Text("Finished");
+        RenderTable(*state);
         break;
     }
     ImGui::End();
