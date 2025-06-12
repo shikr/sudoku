@@ -21,7 +21,7 @@ void RenderTable(AppState state) {
   }
 }
 
-void RenderFinish(AppState state) {
+void RenderFinish(AppState &state) {
   if (!ImGui::BeginChild("Finish Table")) return;
   int row, col;
   if (findEmpty(state, row, col))
@@ -30,6 +30,10 @@ void RenderFinish(AppState state) {
     ImGui::Text("Terminado.");
   ImGui::SeparatorText("Sudoku");
   RenderTable(state);
+  if (ImGui::Button("Nuevo")) {
+    freeTable(state.table, state.size);
+    state.status = SizeSelecting;
+  }
   ImGui::EndChild();
 }
 
