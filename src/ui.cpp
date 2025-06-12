@@ -7,18 +7,30 @@
 #include "utils/table.h"
 
 void RenderTable(AppState state) {
-  if (ImGui::BeginTable("Table", state.size,
-                        ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)) {
-    for (int i = 0; i < state.size; i++) {
-      ImGui::TableNextRow();
-      for (int j = 0; j < state.size; j++) {
-        ImGui::TableSetColumnIndex(j);
-        ImGui::Text("Col %d", state.table[i][j]);
+  if (!ImGui::BeginTable("Table", state.size / state.subSize)) return;
+  for (int k = 0; k < state.subSize; k++) {
+    for (int l = 0; l < state.subSize; l++) {
+      char label[10];
+      snprintf(label, 10, "%dx%d", k, l);
+      ImGui::TableNextColumn();
+      if (!ImGui::BeginTable(label, state.subSize, ImGuiTableFlags_BordersOuter)) return;
+      for (int i = 0; i < state.subSize; i++) {
+        ImGui::TableNextRow();
+        for (int j = 0; j < state.subSize; j++) {
+          ImGui::TableNextColumn();
+          int item = state.table[k * state.subSize + i][l * state.subSize + j];
+          ImVec4 color;
+          if (item == 0)
+            color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+          else
+            color = ImVec4(0.01f, 0.45f, 1.0f, 1.0f);
+          ImGui::TextColored(color, "%d", item);
+        }
       }
+      ImGui::EndTable();
     }
-
-    ImGui::EndTable();
   }
+  ImGui::EndTable();
 }
 
 void RenderStep(AppState &state) {
