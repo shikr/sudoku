@@ -7,3 +7,5 @@
 char *getEnv(const char *);
 
 void saveStep(AppState);
+
+int **getStep(AppState);

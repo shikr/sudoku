@@ -36,3 +36,25 @@ void saveStep(AppState state) {
 
   json_object_put(root);
 }
+
+int **getStep(AppState state) {
+  char filename[] = "data.json";
+  json_object *root = json_object_from_file(filename);
+  json_object *steps;
+
+  if (!json_object_object_get_ex(root, state.key, &steps)) return NULL;
+  json_object *array = json_object_array_get_idx(steps, state.step);
+  int **step = new int *[state.size];
+  for (int i = 0; i < state.size; i++) {
+    step[i] = new int[state.size];
+    json_object *row = json_object_array_get_idx(array, i);
+    for (int j = 0; j < state.size; j++) {
+      json_object *cell = json_object_array_get_idx(row, j);
+      step[i][j] = json_object_get_int(cell);
+    }
+  }
+
+  json_object_put(root);
+
+  return step;
+}
