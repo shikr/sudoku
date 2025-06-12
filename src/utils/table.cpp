@@ -98,9 +98,9 @@ bool solve(AppState state) {
 void fillRandom(AppState state) {
   for (int i = 0; i < state.size; i++) {
     for (int j = 0; j < state.size; j++) {
-      int n = rand() % 10;
+      int n = rand() % state.size + 1;
       if (rand() % 10 < state.size / 3 && isAvailable(state, i, j, n))
-        state.table[i][j] = rand() % 10;
+        state.table[i][j] = n;
       else
         state.table[i][j] = 0;
     }
