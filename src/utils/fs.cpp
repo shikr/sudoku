@@ -72,3 +72,15 @@ Table getStep(AppState state) {
 
   return step;
 }
+
+bool alreadyWritten(AppState state) {
+  char filename[] = "data.json";
+  json_object *root = json_object_from_file(filename);
+  json_object *steps;
+
+  bool written = json_object_object_get_ex(root, state.key, &steps);
+
+  json_object_put(root);
+
+  return written;
+}

@@ -11,3 +11,5 @@ void saveStep(AppState);
 size_t getStepsSize(char *);
 
 Table getStep(AppState);
+
+bool alreadyWritten(AppState);
