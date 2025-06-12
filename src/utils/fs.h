@@ -8,4 +8,6 @@ char *getEnv(const char *);
 
 void saveStep(AppState);
 
+size_t getStepsSize(char *);
+
 Table getStep(AppState);

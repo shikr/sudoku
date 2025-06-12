@@ -37,6 +37,16 @@ void saveStep(AppState state) {
   json_object_put(root);
 }
 
+size_t getStepsSize(char *key) {
+  char filename[] = "data.json";
+  json_object *root = json_object_from_file(filename);
+  json_object *steps;
+
+  if (!json_object_object_get_ex(root, key, &steps)) return NULL;
+
+  return json_object_array_length(steps);
+}
+
 Table getStep(AppState state) {
   char filename[] = "data.json";
   json_object *root = json_object_from_file(filename);
