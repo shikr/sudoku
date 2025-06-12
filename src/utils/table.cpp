@@ -50,7 +50,8 @@ json_object *tableToJson(AppState state) {
 bool isAvailable(AppState state, int row, int col, int n) {
   // if is in the row/column
   for (int i = 0; i < state.size; i++) {
-    if (state.table[row][i] == n || state.table[i][col] == n) return false;
+    if (col != i && state.table[row][i] == n) return false;
+    if (row != i && state.table[i][col] == n) return false;
   }
 
   int startRow = row - row % state.subSize;
@@ -58,7 +59,9 @@ bool isAvailable(AppState state, int row, int col, int n) {
 
   // if is in the subtable
   for (int i = 0; i < state.subSize; i++) {
+    if (i + startRow == row) continue;
     for (int j = 0; j < state.subSize; j++) {
+      if (j + startCol == col) continue;
       if (state.table[i + startRow][j + startCol] == n) return false;
     }
   }
