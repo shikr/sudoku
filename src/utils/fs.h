@@ -8,4 +8,4 @@ char *getEnv(const char *);
 
 void saveStep(AppState);
 
-int **getStep(AppState);
+Table getStep(AppState);
