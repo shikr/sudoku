@@ -13,5 +13,6 @@ typedef struct {
   int size;
   int subSize;
   size_t step;
+  float speed;
   double lastStepTime;
 } AppState;

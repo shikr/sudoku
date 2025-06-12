@@ -91,13 +91,15 @@ void RenderUi(AppState *state) {
   if (ImGui::Begin("Sudoku Solver", NULL, ImGuiWindowFlags_NoDecoration)) {
     switch (state->status) {
       case Resolving:
-        if (ImGui::GetTime() - state->lastStepTime > DELAY) {
+        if (ImGui::GetTime() - state->lastStepTime > DELAY / state->speed) {
           state->lastStepTime = ImGui::GetTime();
           state->table = getStep(*state);
           state->step++;
           if (state->step >= getStepsSize(state->key)) state->status = Finished;
         }
         RenderTable(*state);
+        ImGui::SetNextItemWidth(100.0f);
+        ImGui::SliderFloat("Velocidad", &state->speed, 0.25f, 2.0f, "%.2f");
         break;
       case Selecting:
         RenderInput(*state);

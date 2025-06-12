@@ -47,6 +47,7 @@ int main() {
   state.status = SizeSelecting;
   state.size = 9;
   state.subSize = 3;
+  state.speed = 1;
   while (running) {
     ALLEGRO_EVENT ev;
     while (al_get_next_event(event_queue, &ev)) {
