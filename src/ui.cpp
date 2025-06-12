@@ -21,6 +21,14 @@ void RenderTable(AppState state) {
   }
 }
 
+void RenderStep(AppState state) {
+  if (!ImGui::BeginChild("Step Tabke")) return;
+  RenderTable(state);
+  ImGui::SetNextItemWidth(100.0f);
+  ImGui::SliderFloat("Velocidad", &state.speed, 0.25f, 2.0f, "%.2f");
+  ImGui::EndChild();
+}
+
 void RenderFinish(AppState &state) {
   if (!ImGui::BeginChild("Finish Table")) return;
   int row, col;
@@ -97,9 +105,7 @@ void RenderUi(AppState *state) {
           state->step++;
           if (state->step >= getStepsSize(state->key)) state->status = Finished;
         }
-        RenderTable(*state);
-        ImGui::SetNextItemWidth(100.0f);
-        ImGui::SliderFloat("Velocidad", &state->speed, 0.25f, 2.0f, "%.2f");
+        RenderStep(*state);
         break;
       case Selecting:
         RenderInput(*state);
