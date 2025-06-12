@@ -21,6 +21,18 @@ void RenderTable(AppState state) {
   }
 }
 
+void RenderFinish(AppState state) {
+  if (!ImGui::BeginChild("Finish Table")) return;
+  int row, col;
+  if (findEmpty(state, row, col))
+    ImGui::Text("No se ha podido completar el sudoku...");
+  else
+    ImGui::Text("Terminado.");
+  ImGui::SeparatorText("Sudoku");
+  RenderTable(state);
+  ImGui::EndChild();
+}
+
 void RenderInput(AppState &state) {
   if (!ImGui::BeginChild("Input Table", ImVec2(0, 0), true)) return;
   ImGui::Text("Establece los valores iniciales de la tabla.");
@@ -90,8 +102,7 @@ void RenderUi(AppState *state) {
         RenderSize(*state);
         break;
       case Finished:
-        ImGui::Text("Finished");
-        RenderTable(*state);
+        RenderFinish(*state);
         break;
     }
     ImGui::End();
