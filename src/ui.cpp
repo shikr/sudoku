@@ -21,11 +21,17 @@ void RenderTable(AppState state) {
   }
 }
 
-void RenderStep(AppState state) {
+void RenderStep(AppState &state) {
   if (!ImGui::BeginChild("Step Tabke")) return;
   RenderTable(state);
   ImGui::SetNextItemWidth(100.0f);
   ImGui::SliderFloat("Velocidad", &state.speed, 0.25f, 2.0f, "%.2f");
+  ImGui::SameLine();
+  if (ImGui::Button("Terminar")) {
+    state.step = getStepsSize(state.key) - 1;
+    state.table = getStep(state);
+    state.status = Finished;
+  }
   ImGui::EndChild();
 }
 
