@@ -35,6 +35,8 @@ void RenderTable(AppState state) {
 
 void RenderStep(AppState &state) {
   if (!ImGui::BeginChild("Step Tabke")) return;
+  ImGui::Text("Resolviendo...");
+  ImGui::SeparatorText("Sudoku");
   RenderTable(state);
   ImGui::SetNextItemWidth(100.0f);
   ImGui::SliderFloat("Velocidad", &state.speed, 0.25f, 2.0f, "%.2f");
