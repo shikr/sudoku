@@ -69,6 +69,17 @@ bool isAvailable(AppState state, int row, int col, int n) {
   return true;
 }
 
+bool checkTable(AppState state) {
+  for (int i = 0; i < state.size; i++) {
+    for (int j = 0; j < state.size; j++) {
+      if (state.table[i][j] != 0) {
+        if (!isAvailable(state, i, j, state.table[i][j])) return false;
+      }
+    }
+  }
+  return true;
+}
+
 bool findEmpty(AppState state, int &row, int &col) {
   for (row = 0; row < state.size; row++) {
     for (col = 0; col < state.size; col++) {

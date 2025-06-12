@@ -12,6 +12,8 @@ json_object *tableToJson(AppState);
 
 bool isAvailable(AppState, int, int, int);
 
+bool checkTable(AppState);
+
 bool findEmpty(AppState, int &, int &);
 
 bool solve(AppState);
