@@ -44,7 +44,11 @@ size_t getStepsSize(char *key) {
 
   if (!json_object_object_get_ex(root, key, &steps)) return NULL;
 
-  return json_object_array_length(steps);
+  size_t size = json_object_array_length(steps);
+
+  json_object_put(root);
+
+  return size;
 }
 
 Table getStep(AppState state) {
